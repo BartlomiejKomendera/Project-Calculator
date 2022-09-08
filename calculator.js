@@ -1,3 +1,35 @@
+const numbers = document.querySelectorAll(".number");
+const operators = document.querySelectorAll(".operator");
+const display = document.querySelector("#display");
+const equals = document.querySelector(".equals");
+let firstNumber = "";
+let secondNumber = "";
+let operator = "";
+
+numbers.forEach(number => {
+    number.addEventListener("click", () => {
+        secondNumber = secondNumber + number.getAttribute("value");
+        console.log(secondNumber);
+        console.log(firstNumber);
+    })
+})
+
+operators.forEach(operator => {
+    operator.addEventListener("click", () => {
+        operator = operator.getAttribute("value");
+        console.log(operator);
+        firstNumber = secondNumber;
+        secondNumber = "";
+        console.log(secondNumber);
+        console.log(firstNumber)
+    })
+})
+
+equals.addEventListener("click", () => { 
+    display.textContent = "" + operate(parseInt(firstNumber), parseInt(secondNumber), operator);
+    console.log(display.textContent);
+})
+
 function operate(firstNumber, secondNumber, operator) {
     switch (operator) {
         case "+":

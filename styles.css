@@ -17,14 +17,17 @@ body {
 #display {
     display: flex;
     flex: 2;
-    padding: 20px;
-}
-
-#result {
     border-style: solid;
     border-width: 2px;
     border-color: gray;
-    flex: 1;
+    margin: 20px;
+    padding-right: 20px;
+    font-family: 'Courier New', Courier, monospace;
+    font-weight: bold;
+    font-size: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: right;
 }
 
 #reset-buttons {
@@ -57,7 +60,7 @@ body {
     gap: 10px;
 }
 
-.button {
+.number, .operator, .equals, .dot {
     border-style: solid;
     border-width: 2px;
     border-color: gray;
@@ -69,9 +72,10 @@ body {
     display: flex;
     align-items: center;
     justify-content: center;
+
 }
 
-.button:hover {
+.number:hover, .operator:hover, .equals:hover, .dot:hover {
     cursor: pointer;
     border-color: black;
 }
