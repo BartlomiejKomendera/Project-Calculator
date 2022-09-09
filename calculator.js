@@ -2,32 +2,58 @@ const numbers = document.querySelectorAll(".number");
 const operators = document.querySelectorAll(".operator");
 const display = document.querySelector("#display");
 const equals = document.querySelector(".equals");
+const reset = document.querySelector("#reset");
+const backspace = document.querySelector("#backspace");
 let firstNumber = "";
 let secondNumber = "";
 let operator = "";
+let isFirstNumberSet = false;
+display.textContent = "0";
 
 numbers.forEach(number => {
     number.addEventListener("click", () => {
-        secondNumber = secondNumber + number.getAttribute("value");
-        console.log(secondNumber);
-        console.log(firstNumber);
+        if (!isFirstNumberSet) {
+            firstNumber = firstNumber + number.getAttribute("value");
+        }
+        if (isFirstNumberSet) {
+            secondNumber = secondNumber + number.getAttribute("value");
+        }
+        display.textContent = firstNumber + operator + secondNumber;
     })
 })
 
-operators.forEach(operator => {
-    operator.addEventListener("click", () => {
-        operator = operator.getAttribute("value");
-        console.log(operator);
-        firstNumber = secondNumber;
-        secondNumber = "";
-        console.log(secondNumber);
-        console.log(firstNumber)
+operators.forEach(element => {
+    element.addEventListener("click", () => {
+        if (operator == "") {
+            operator = element.getAttribute("value");
+        } else {
+            if (firstNumber.includes(".", 0) || secondNumber.includes(".", 0)) {
+                display.textContent = "" + operate(parseFloat(firstNumber), parseFloat(secondNumber), operator);
+            } else {
+                display.textContent = "" + operate(parseInt(firstNumber), parseInt(secondNumber), operator);
+            }
+            operator = element.getAttribute("value");
+            secondNumber = "";
+        }
+        isFirstNumberSet = true;
+        display.textContent = firstNumber + operator + secondNumber;
     })
 })
 
-equals.addEventListener("click", () => { 
-    display.textContent = "" + operate(parseInt(firstNumber), parseInt(secondNumber), operator);
-    console.log(display.textContent);
+equals.addEventListener("click", () => {
+    if (firstNumber.includes(".", 0) || secondNumber.includes(".", 0)) {
+        display.textContent = "" + operate(parseFloat(firstNumber), parseFloat(secondNumber), operator);
+    } else {
+        display.textContent = "" + operate(parseInt(firstNumber), parseInt(secondNumber), operator);
+    }
+})
+
+reset.addEventListener("click", () => {
+    firstNumber = "";
+    secondNumber = "";
+    operator = "";
+    isFirstNumberSet = false;
+    display.textContent = "0";
 })
 
 function operate(firstNumber, secondNumber, operator) {
@@ -44,14 +70,14 @@ function operate(firstNumber, secondNumber, operator) {
 }
 
 function add(firstNumber, secondNumber) {
-    return firstNumber + secondNumber;
+    return Math.round((firstNumber + secondNumber) * 100) / 100;
 }
 function substract(firstNumber, secondNumber) {
-    return firstNumber - secondNumber;
+    return Math.round((firstNumber - secondNumber) * 100) / 100;
 }
 function multiply(firstNumber, secondNumber) {
-    return firstNumber * secondNumber;
+    return Math.round((firstNumber * secondNumber) * 100) / 100;
 }
 function divide(firstNumber, secondNumber) {
-    return firstNumber / secondNumber;
+    return Math.round((firstNumber / secondNumber) * 100) / 100;
 }
