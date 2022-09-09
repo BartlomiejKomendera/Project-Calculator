@@ -1,3 +1,7 @@
+/* TODO
+    - Cant operate with float numbers.
+    - Zeroes get removed.
+*/
 const numbers = document.querySelectorAll(".number");
 const operators = document.querySelectorAll(".operator");
 const display = document.querySelector("#display");
