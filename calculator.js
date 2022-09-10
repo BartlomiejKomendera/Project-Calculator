@@ -31,11 +31,8 @@ operators.forEach(element => {
         if (operator == "") {
             operator = element.getAttribute("value");
         } else {
-            if (firstNumber.includes(".", 0) || secondNumber.includes(".", 0)) {
-                display.textContent = "" + operate(parseFloat(firstNumber), parseFloat(secondNumber), operator);
-            } else {
-                display.textContent = "" + operate(parseInt(firstNumber), parseInt(secondNumber), operator);
-            }
+            firstNumber = operate(parseInt(firstNumber), parseInt(secondNumber), operator);
+            display.textContent = "" + firstNumber;
             operator = element.getAttribute("value");
             secondNumber = "";
         }
@@ -45,11 +42,7 @@ operators.forEach(element => {
 })
 
 equals.addEventListener("click", () => {
-    if (firstNumber.includes(".", 0) || secondNumber.includes(".", 0)) {
-        display.textContent = "" + operate(parseFloat(firstNumber), parseFloat(secondNumber), operator);
-    } else {
-        display.textContent = "" + operate(parseInt(firstNumber), parseInt(secondNumber), operator);
-    }
+    display.textContent = "" + operate(parseInt(firstNumber), parseInt(secondNumber), operator);
 })
 
 reset.addEventListener("click", () => {
